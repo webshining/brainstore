@@ -1,0 +1,40 @@
+x-django: &django
+    build: .
+    environment:
+        DEBUG: False
+        DATABASE_URL: postgres://admin_user:admin_pass@postgres:5432/brain
+        CELERY_BROKER_URL: ${CELERY_BROKER_URL}
+    volumes:
+        - static_volume:/app/staticfiles
+    networks:
+        - app
+        - storage
+
+services:
+    migrate:
+        <<: *django
+        command: sh -c "python manage.py migrate --noinput && python manage.py collectstatic --clear --noinput"
+        restart: no
+
+    bot:
+        <<: *django
+        restart: always
+        command: sh -c "python /app/manage.py start_bot"
+    admin:
+        <<: *django
+        restart: always
+        command: sh -c "python -m gunicorn app.wsgi --bind 0.0.0.0:4000"
+        ports:
+            - "4000:4000"
+    celery:
+        <<: *django
+        restart: unless-stopped
+        command: python -m celery -A app worker --loglevel=info --beat --scheduler=django_celery_beat.schedulers:DatabaseScheduler
+
+volumes:
+    static_volume:
+
+networks:
+    app:
+    storage:
+        external: true

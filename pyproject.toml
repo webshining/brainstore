@@ -1,0 +1,25 @@
+[project]
+name = "brain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiogram>=3.20.0.post0",
+    "celery>=5.5.3",
+    "dj-database-url>=3.0.0",
+    "django>=5.2.3",
+    "django-celery-beat>=2.8.1",
+    "django-jazzmin>=3.0.1",
+    "environs>=14.2.0",
+    "google-genai>=1.21.1",
+    "gunicorn>=23.0.0",
+    "loguru>=0.7.3",
+    "psycopg>=3.2.9",
+    "psycopg2-binary>=2.9.10",
+    "pytelegrambotapi>=4.27.0",
+    "pytz>=2025.2",
+    "redis>=6.2.0",
+    "uvicorn>=0.34.3",
+    "whitenoise>=6.9.0",
+]
