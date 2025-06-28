@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "aiogram>=3.20.0.post0",
+    "black>=25.1.0",
     "celery>=5.5.3",
     "dj-database-url>=3.0.0",
     "django>=5.2.3",
@@ -23,3 +24,18 @@ dependencies = [
     "uvicorn>=0.34.3",
     "whitenoise>=6.9.0",
 ]
+
+[tool.black]
+line-length = 120
+target-version = ['py313']
+skip-string-normalization = false
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.venv
+  | build
+  | dist
+  | migrations
+  | __pycache__
+)/
+'''

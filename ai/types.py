@@ -8,6 +8,7 @@ from pydantic import BaseModel
 class RequestCategory(Enum):
     NOTES = "notes"
     REMINDERS = "reminders"
+    CALENDAR = "calendar"
 
 
 class RequestCategoryResponse(BaseModel):
@@ -16,7 +17,7 @@ class RequestCategoryResponse(BaseModel):
 
 class ReminderItem(BaseModel):
     title: str
-    task: str
+    message: str
     is_once: bool
     cron: str | None
     datetime: datetime | None

@@ -11,7 +11,11 @@ DEBUG = env.bool("DEBUG", default=True)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-k6cwxwqj#4re=!r9ayei8bdm9$yjzfo333&$26jul*jdt(lgl("
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0",
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,7 +30,7 @@ INSTALLED_APPS = [
     "ai",
     "users",
     "bot",
-    "reminder",
+    "reminders",
 ]
 
 MIDDLEWARE = [
@@ -60,15 +64,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
-
 # Database settings
-DATABASE_URL = env.str("DATABASE_URL", default="sqlite:///database.sqlite3")
+DATABASE_URL = env.str(
+    "DATABASE_URL",
+    default="sqlite:///database.db",
+)
 DATABASES = {"default": dj_database_url.config(default=DATABASE_URL)}
 
 # Celery settings
 CELERY_TIMEZONE = "UTC"
 CELERY_ENABLE_UTC = True
-CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", default="redis://default@localhost:6379/0")
+CELERY_BROKER_URL = env.str(
+    "CELERY_BROKER_URL",
+    default="redis://default@localhost:6379/0",
+)
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 # Auth settings
@@ -88,7 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
 
 # Timezone
 TIME_ZONE = "UTC"

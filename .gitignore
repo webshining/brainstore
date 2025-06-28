@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/database,django,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=database,django,python
 
+.idea
 ### Database ###
 *.accdb
 *.db

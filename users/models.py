@@ -1,10 +1,19 @@
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 
 
 class UserManager(BaseUserManager):
-    def create_superuser(self, username: str, password: str, **extra_fields):
+    def create_superuser(
+        self,
+        username: str,
+        password: str,
+        **extra_fields,
+    ):
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_active", True)
@@ -20,7 +29,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(blank=True, null=True)
     telegram_id = models.BigIntegerField(blank=True, null=True, unique=True)
     telegram_username = models.CharField(blank=True, null=True)
-    language_code = models.CharField(blank=False, null=False, default="en", choices=settings.LANGUAGES)
+    language_code = models.CharField(
+        blank=False,
+        null=False,
+        default="en",
+        choices=settings.LANGUAGES,
+    )
 
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)

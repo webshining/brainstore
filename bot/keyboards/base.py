@@ -1,5 +1,10 @@
-from aiogram.filters.callback_data import CallbackQueryFilter
-from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
+from aiogram.filters.callback_data import (
+    CallbackQueryFilter,
+)
+from aiogram.utils.keyboard import (
+    InlineKeyboardBuilder,
+    ReplyKeyboardBuilder,
+)
 from aiogram.utils.magic_filter import MagicFilter
 
 

@@ -1,8 +1,9 @@
 from aiogram import Dispatcher
-from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.fsm.storage.memory import (
+    MemoryStorage,
+)
 
 from utils import logger
-
 from .handlers import setup_routes
 from .loader import bot
 from .middlewares import setup_middlewares
