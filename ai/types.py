@@ -1,7 +1,17 @@
 from datetime import datetime
+from enum import Enum
 from typing import List
 
 from pydantic import BaseModel
+
+
+class RequestCategory(Enum):
+    NOTES = "notes"
+    REMINDERS = "reminders"
+
+
+class RequestCategoryResponse(BaseModel):
+    category: RequestCategory
 
 
 class ReminderItem(BaseModel):
