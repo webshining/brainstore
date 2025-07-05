@@ -3,43 +3,41 @@ from datetime import datetime
 import google.genai as genai
 from django.conf import settings
 
-from .types import (
-    ReminderItem,
-    ReminderResponse,
-    RequestCategory,
-    RequestCategoryResponse,
-)
+from ai.types import AIResponse, AIReminder, AICategory
 
 client = genai.Client(api_key=settings.GOOGLE_AI_API_KEY)
 
 
 def get_request_category(
         text: str,
-) -> RequestCategory:
-    prompt = f"Determine what category this text can be."
+) -> AICategory:
+    prompt = "Determine what category this text can be."
     response = client.models.generate_content(
         model="gemini-1.5-flash",
         contents=[
             prompt,
-            "\n\n",
             text,
         ],
         config={
-            "response_mime_type": "application/json",
-            "response_schema": RequestCategoryResponse,
+            'response_mime_type': 'text/x.enum',
+            "response_schema": AICategory,
         },
     )
-    return response.parsed.category
+    return response.parsed
 
 
-def get_reminder_data(current_time: datetime, message: str, category: str) -> list[ReminderItem]:
-    prompt = f"Extract all reminder data from the message, taking into account that calendar events are not one-time but permanent and using cron."
+def get_reminder_data(current_time: datetime, message: str) -> AIResponse[AIReminder]:
+    prompt = "Extract all reminder data from the message."
     response = client.models.generate_content(
         model="gemini-1.5-flash",
-        contents=[prompt, f"Current time: {current_time}", f"Category: {category}", message],
+        contents=[prompt, f"Current time: {current_time}", message],
         config={
             "response_mime_type": "application/json",
-            "response_schema": ReminderResponse,
+            "response_schema": AIReminder,
         },
     )
-    return response.parsed.reminders
+    return AIResponse(
+        prompt=prompt,
+        request=message,
+        response=response.parsed,
+    )
